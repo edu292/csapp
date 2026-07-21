@@ -1,4 +1,10 @@
 csim-ref
+*.tar
+*.f*
+*.tmp
+*.o
+.marker
+.csim_results
 csim
 tracegen
 test-trans
