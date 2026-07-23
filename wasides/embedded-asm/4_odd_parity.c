@@ -2,18 +2,17 @@
 
 int odd_parity(unsigned long x) {
   unsigned char odd_parity_byte;
-  int odd_byte_counter = 0;
-  for (int i = sizeof(unsigned long); i > 0; i--) {
+  unsigned char odd_parity = 0;
+  while (x != 0) {
     asm("testb %b[x], %b[x]\n\t"
         "setnp %[op]"
         : [op] "=r"(odd_parity_byte)
         : [x] "r"(x));
-    odd_byte_counter += odd_parity_byte;
-
+    odd_parity ^= odd_parity_byte;
     x >>= 8;
   }
 
-  return odd_byte_counter & 1;
+  return (int) odd_parity;
 }
 
 int main(void) {
