@@ -207,7 +207,7 @@ int main(void) {
                    {{-1, 2, -3, 4}, 4}};
   int num_tests = sizeof(raw_tests) / sizeof(raw_tests[0]);
 
-  printf("=== Correctness Tests ===\n");
+  printf("=== Tests ===\n");
   for (int a = 0; a < num_algos; a++) {
     int passed = 0;
     for (int i = 0; i < num_tests; i++) {
