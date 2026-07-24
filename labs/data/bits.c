@@ -141,14 +141,18 @@ NOTES:
  *   Max ops: 14
  *   Rating: 1
  */
-int bitXor(int x, int y) { return 2; }
+int bitXor(int x, int y) {
+  return ~(~x & ~y) & ~(x & y);
+}
 /*
  * tmin - return minimum two's complement integer
  *   Legal ops: ! ~ & ^ | + << >>
  *   Max ops: 4
  *   Rating: 1
  */
-int tmin(void) { return 2; }
+int tmin(void) {
+  return 1 << 31;
+}
 // 2
 /*
  * isTmax - returns 1 if x is the maximum, two's complement number,
@@ -157,7 +161,9 @@ int tmin(void) { return 2; }
  *   Max ops: 10
  *   Rating: 1
  */
-int isTmax(int x) { return 2; }
+int isTmax(int x) {
+  return !((x + 1) ^ ~x) & !!(x + 1);
+}
 /*
  * allOddBits - return 1 if all odd-numbered bits in word set to 1
  *   where bits are numbered from 0 (least significant) to 31 (most significant)
@@ -166,7 +172,12 @@ int isTmax(int x) { return 2; }
  *   Max ops: 12
  *   Rating: 2
  */
-int allOddBits(int x) { return 2; }
+int allOddBits(int x) {
+  int mask = 0xAA;
+  mask = mask | (mask << 8);
+  mask = mask | (mask << 16);
+  return !((x & mask) ^ mask);
+}
 /*
  * negate - return -x
  *   Example: negate(1) = -1.
@@ -174,7 +185,9 @@ int allOddBits(int x) { return 2; }
  *   Max ops: 5
  *   Rating: 2
  */
-int negate(int x) { return 2; }
+int negate(int x) { 
+  return ~0 ^ x;
+}
 // 3
 /*
  * isAsciiDigit - return 1 if 0x30 <= x <= 0x39 (ASCII codes for characters '0'
